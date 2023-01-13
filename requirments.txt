@@ -1,0 +1,5 @@
+flask
+sqlalchemy
+cryptography
+requests
+pymysql

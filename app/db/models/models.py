@@ -19,7 +19,7 @@ class User(Base):
 class MusicalComposition(Base):
     __tablename__ = 'musical_compositions'
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = Column(Integer, ForeignKey(f'{User__tablename__}.{User.id.name}'))
+    user_id = Column(Integer, ForeignKey(f'{User.__tablename__}.{User.id.name}'))
     url = Column(VARCHAR(60), nullable=True)
     user = relationship('User', backref='musical_composition')
 

@@ -12,7 +12,7 @@ class MySQLConnection:
        self.port = port
 
        self.rebuild_db = rebuild_db
-       self.connection = self.connect
+       self.connection = self.connect()
 
        session = sessionmaker(
           bind=self.connection.engine,
@@ -21,7 +21,7 @@ class MySQLConnection:
           enable_baked_queries=False,
           expire_on_commit=True        
        )
-       self.session = self.session()
+       self.session = session()
 
     def get_connection(self, db_created=False):
        engine = sqlalchemy.create_engine(
@@ -33,9 +33,9 @@ class MySQLConnection:
     def connect(self):
         connection = self.get_connection()
         if self.rebuild_db:
-            connection.excute(f'DROP DATABASE IF EXISTS {self.db_name}')
-            connection.excute(f'CREATE DATABASE {self.db_name}')
-        return self.get_coonection(db_created=True)
+            connection.execute(f'DROP DATABASE IF EXISTS {self.db_name}')
+            connection.execute(f'CREATE DATABASE {self.db_name}')
+        return self.get_connection(db_created=True)
 
 
     def execute_query(self,query):
